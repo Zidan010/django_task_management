@@ -87,7 +87,7 @@ def delete_task(request, task_id):
 
 
 @login_required
-@admin_required
+# @admin_required
 def create_task(request):
     if request.method == 'POST':
         # Retrieve data from the POST request
@@ -95,8 +95,7 @@ def create_task(request):
         category_id = request.POST.get('category')
         start_date = request.POST.get('start_date')
         end_date = request.POST.get('end_date')
-        # priority = request.POST.get('priority')
-        status = request.POST.get('status')
+        priority = request.POST.get('priority')
         description = request.POST.get('description')
         location = request.POST.get('location')
         organizer = request.POST.get('organizer')
@@ -107,16 +106,20 @@ def create_task(request):
             category=category,
             start_date=start_date,
             end_date=end_date,
-            # priority=priority,
-            status=status,
+            priority=priority,
             description=description,
             location=location,
             organizer=organizer,
             assigned_to_id=int(assigned_to_id)
         )
 
-        # Redirect to the task list page
-        return redirect('category_list')
+        if request.user.is_superuser:
+
+
+            # Redirect to the task list page
+            return redirect('category_list')
+        else:
+            return redirect('user_tasks_list')
     else:
         categories = Category.objects.all()
         users = User.objects.all()
@@ -124,7 +127,7 @@ def create_task(request):
 
 
 @login_required
-@admin_required
+# @admin_required
 def update_task(request, task_id):
     task = Task.objects.get(pk=task_id)
     if request.method == 'POST':
@@ -132,8 +135,7 @@ def update_task(request, task_id):
         task.name = request.POST.get('name')
         task.start_date = request.POST.get('start_date')
         task.end_date = request.POST.get('end_date')
-        # task.priority = request.POST.get('priority')
-        task.status = request.POST.get('status')
+        task.priority = request.POST.get('priority')
         task.description = request.POST.get('description')
         task.location = request.POST.get('location')
         task.organizer = request.POST.get('organizer')
@@ -146,7 +148,7 @@ def update_task(request, task_id):
 
 
 @login_required
-@admin_required
+# @admin_required
 def category_list(request):
     categories = Category.objects.all()
     return render(request, 'task_management_system_app/category_list.html', {'categories': categories})
