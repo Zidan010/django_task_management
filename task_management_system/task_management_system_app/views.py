@@ -87,7 +87,7 @@ def delete_task(request, task_id):
 
 
 @login_required
-@admin_required
+# @admin_required
 def create_task(request):
     if request.method == 'POST':
         # Retrieve data from the POST request
@@ -115,8 +115,11 @@ def create_task(request):
             assigned_to_id=int(assigned_to_id)
         )
 
-        # Redirect to the task list page
-        return redirect('category_list')
+        if request.user.is_superuser:
+            # Redirect to the task list page
+            return redirect('category_list')
+        else:
+            return redirect('user_tasks_list')
     else:
         categories = Category.objects.all()
         users = User.objects.all()
@@ -124,7 +127,7 @@ def create_task(request):
 
 
 @login_required
-@admin_required
+# @admin_required
 def update_task(request, task_id):
     task = Task.objects.get(pk=task_id)
     if request.method == 'POST':
@@ -146,7 +149,7 @@ def update_task(request, task_id):
 
 
 @login_required
-@admin_required
+# @admin_required
 def category_list(request):
     categories = Category.objects.all()
     return render(request, 'task_management_system_app/category_list.html', {'categories': categories})
