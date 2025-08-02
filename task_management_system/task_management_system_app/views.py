@@ -95,7 +95,8 @@ def create_task(request):
         category_id = request.POST.get('category')
         start_date = request.POST.get('start_date')
         end_date = request.POST.get('end_date')
-        priority = request.POST.get('priority')
+        # priority = request.POST.get('priority')
+        status = request.POST.get('status')
         description = request.POST.get('description')
         location = request.POST.get('location')
         organizer = request.POST.get('organizer')
@@ -106,7 +107,8 @@ def create_task(request):
             category=category,
             start_date=start_date,
             end_date=end_date,
-            priority=priority,
+            # priority=priority,
+            status=status,
             description=description,
             location=location,
             organizer=organizer,
@@ -130,7 +132,8 @@ def update_task(request, task_id):
         task.name = request.POST.get('name')
         task.start_date = request.POST.get('start_date')
         task.end_date = request.POST.get('end_date')
-        task.priority = request.POST.get('priority')
+        # task.priority = request.POST.get('priority')
+        task.status = request.POST.get('status')
         task.description = request.POST.get('description')
         task.location = request.POST.get('location')
         task.organizer = request.POST.get('organizer')

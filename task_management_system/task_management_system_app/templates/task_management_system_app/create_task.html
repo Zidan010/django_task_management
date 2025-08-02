@@ -43,10 +43,19 @@
           <label for="endDate">End Date:</label>
           <input type="datetime-local" class="form-control" id="endDate" name="end_date" required />
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label for="priority">Priority:</label>
           <input type="number" class="form-control" id="priority" name="priority" min="1" value="1" required />
+        </div> -->
+        <div class="form-group">
+          <label for="status">Status:</label>
+          <select class="form-control" id="status" name="status" required>
+            <option value="to_do">To Do</option>
+            <option value="in_progress">In Progress</option>
+            <option value="done">Done</option>
+          </select>
         </div>
+
         <div class="form-group">
           <label for="description">Description:</label>
           <textarea class="form-control" id="description" name="description" rows="3"></textarea>
